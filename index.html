@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<style>
+        #buttonbutton {
+            margin-top: 10px;
+            padding: 10px 40px;
+        }
+    </style>
+
+	<body>
+		<div id="container"></div>
+
+		<div id="todoContainer">
+			<div id="divForTodoAndCheckBox">
+				<input id="inputBoxForValue" type="text" />
+				<input id="checkboxbox" type="checkbox" name="" id="" />
+			</div>
+		</div>
+        <button id="buttonbutton">ADD</button>
+		<!-- <button id="btbt">Button</button> -->
+		<div id="mainDiv">
+			<div id="appendingCont"></div>
+		</div>
+	</body>
+</html>
+
+<script>
+	//data -> objects
+
+	var products = [
+		{
+			id: 1,
+			title: "buy milk",
+			status: true,
+		},
+		{
+			id: 2,
+			title: "buy butter",
+			status: false,
+		},
+		{
+			id: 3,
+			title: "buy bread",
+			status: false,
+		},
+	];
+
+	var container = document.getElementById("container");
+	var value = document.querySelector("#inputBoxForValue");
+	var checkbox = document.querySelector("#checkboxbox");
+	var main = document.querySelector("#appendingCont");
+	var mainDiv = document.querySelector("#mainDiv");
+
+	document.querySelector("#buttonbutton").addEventListener("click", appendappend);
+	function appendappend() {
+        var heading = document.createElement("h1");
+		heading.innerHTML = value.value;
+		main.append(heading);
+
+        mainDiv.append(main);
+
+	}
+
+	function appendProducts(data) {
+		container.innerHTML = null;
+
+		data.forEach(function (elem) {
+			// console.log(elem);
+
+			var div = document.createElement("div");
+
+			var status = document.createElement("div");
+
+			status.innerText = elem.status;
+
+			var id = document.createElement("div");
+
+			id.innerText = elem.id;
+
+			var title = document.createElement("div");
+
+			title.innerText = elem.title;
+
+			div.append(status, id, title);
+
+			container.append(div);
+		});
+	}
+
+	//appendProducts(products);
+
+	//transfer my data from index.html to cart.html
+
+	function addtoCart(item) {
+		var food = JSON.parse(localStorage.getItem("food"));
+
+		if (food === null) {
+			food = [];
+
+			localStorage.setItem("food", JSON.stringify(food));
+		}
+
+		food.push(item);
+
+		localStorage.setItem("food", JSON.stringify(food));
+
+		console.log("food:", food);
+	}
+	//addtoCart(products)
+	var forValue = document.querySelector("#inputBoxForValue");
+
+	var checkbox = document.querySelector("#checkboxbox");
+
+	var ans = JSON.parse(localStorage.getItem("food"));
+	console.log(ans);
+
+	document
+		.querySelector("#buttonbutton")
+		.addEventListener("click", isClicked);
+	function isClicked() {
+		addtoCart(products);
+
+		var checkkkk = checkbox.checked;
+
+		ans.push({ title: forValue.value, status: checkkkk });
+		//console.log(1);
+
+		localStorage.setItem("food", JSON.stringify(ans));
+	}
+
+	// appendProducts(food);
+</script>
